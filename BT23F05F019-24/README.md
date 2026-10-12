@@ -148,7 +148,7 @@ legitimate advertising from being flagged.
 
 | Layer | Choice | Why |
 |-------|--------|-----|
-| Reasoning | Claude (vision + structured output) | Joint image/text reasoning; schema-constrained JSON |
+| Reasoning | Groq or Anthropic Claude, behind one pluggable client factory | Vision + schema-constrained tool calling. `config.py` selects the provider from whichever API key is present, so the pipeline is not tied to either vendor |
 | Capture | Playwright (headless Chromium) | Full-page screenshots and DOM dump in one pass |
 | Annotation | Pillow | Draw bounding boxes and labels on the original image |
 | Interface | Streamlit | Fastest route to a demonstrable UI |
@@ -160,6 +160,10 @@ Deliberately boring infrastructure. The novelty is the task, not the stack.
 ---
 
 ## Implementation
+
+**To install and run, see [Source-Code/README.md](Source-Code/README.md).** In short: one virtual
+environment, `pip install -r requirements.txt`, one API key in `.env`, then
+`streamlit run app.py`.
 
 ```text
 Source-Code/
@@ -281,8 +285,11 @@ _Numeric results will be filled in after the dataset is labelled and the evaluat
 
 ## Screenshots
 
-_See `../Screenshots/` for annotated demo output. To be populated with representative audits
-showing the annotated interface, findings panel, and honest redesign side-by-side._
+See [`../Screenshots/`](../Screenshots/), which contains eight captures covering the app before an
+audit, a completed annotated audit, a single finding in detail, the honest-redesign panel, a clean
+control returning nothing, the verifier's rejected candidates, a page of the exported PDF, and the
+ablation chart. [Screenshots/README.md](../Screenshots/README.md) lists the exact filenames and the
+capture rules (resolution, PII blurring, brand anonymisation).
 
 ---
 
@@ -315,18 +322,61 @@ Explicitly **out of scope**, to keep the project small and finishable:
 
 ## References
 
-_To be completed with full citations._
+### Regulation
 
-1. Central Consumer Protection Authority, *Guidelines for Prevention and Regulation of Dark
-   Patterns, 2023*, Ministry of Consumer Affairs, Government of India, 30 November 2023.
-2. Mathur et al., *Dark Patterns at Scale: Findings from a Crawl of 11K Shopping Websites*, CSCW 2019.
-3. Gray et al., *The Dark (Patterns) Side of UX Design*, CHI 2018.
-4. Anthropic, Claude API documentation — vision and structured output.
-5. Playwright documentation.
+1. Central Consumer Protection Authority. *Guidelines for Prevention and Regulation of Dark
+   Patterns, 2023.* Ministry of Consumer Affairs, Food and Public Distribution, Government of
+   India. Notified 30 November 2023. — the source of the 13-category taxonomy in
+   `taxonomy/patterns.yaml`, and of every `provision` string the auditor emits.
+2. OECD. *Dark Commercial Patterns.* OECD Digital Economy Papers, 2022. — international context
+   and the economic harm framing.
+
+### Prior work on dark patterns
+
+3. Mathur, A., Acar, G., Friedman, M. J., Lucherini, E., Mayer, J., Chetty, M., & Narayanan, A.
+   *Dark Patterns at Scale: Findings from a Crawl of 11K Shopping Websites.* Proceedings of the ACM
+   on Human-Computer Interaction, 3(CSCW), Article 81, 2019. — the automated-detection precedent;
+   their crawl-based approach is what a vision-language model replaces.
+4. Gray, C. M., Kou, Y., Battles, B., Hoggatt, J., & Toombs, A. L. *The Dark (Patterns) Side of UX
+   Design.* Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems, Paper
+   534, 2018. — the practitioner-intent framing behind our inclusion/exclusion test structure.
+5. Brignull, H. *Deceptive Design* (formerly darkpatterns.org). — the original pattern taxonomy
+   that the regulatory categories descend from.
+
+### Evaluation methodology
+
+6. Cohen, J. *A Coefficient of Agreement for Nominal Scales.* Educational and Psychological
+   Measurement, 20(1), 37–46, 1960. — the agreement statistic reported in `eval/kappa.py`.
+7. Landis, J. R., & Koch, G. G. *The Measurement of Observer Agreement for Categorical Data.*
+   Biometrics, 33(1), 159–174, 1977. — the κ interpretation bands used in
+   `eval/ANNOTATION-GUIDE.md`.
+
+### Models, APIs and libraries
+
+8. Groq. *Groq API documentation* — vision input and tool calling. https://console.groq.com/docs
+9. Anthropic. *Claude API documentation* — vision and tool use. https://docs.anthropic.com
+10. Playwright — headless browser automation. https://playwright.dev
+11. Streamlit — application framework. https://docs.streamlit.io
+12. Pillow (PIL Fork) — image processing. https://pillow.readthedocs.io
+13. ReportLab — PDF generation. https://docs.reportlab.com
+14. scikit-learn — `cohen_kappa_score` and metrics. https://scikit-learn.org
+15. pandas, matplotlib, PyYAML, BeautifulSoup — official documentation.
+
+No datasets were downloaded for this project; every screenshot in the evaluation set was captured
+by the team from publicly accessible pages.
+
+> Before final submission, verify the exact category names and Annexure numbering in reference 1
+> against the original gazette notification rather than a secondary source — the audit output
+> quotes the provision, so it has to be right.
 
 ## Demo / Deployment Link
 
-_TBD._
+The project runs locally — see [Source-Code/README.md](Source-Code/README.md) for setup. A recorded
+walkthrough and the sample exported audit are in [`../Demo/`](../Demo/), and
+[Demo/README.md](../Demo/README.md) contains the demonstration script: the run order, the fallback
+if the API is unavailable, and the answers to the questions the demo reliably attracts.
+
+_Deployment link: to be added if the Streamlit app is hosted._
 
 ---
 
