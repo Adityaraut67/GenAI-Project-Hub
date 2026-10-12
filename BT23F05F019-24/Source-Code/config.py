@@ -1,4 +1,4 @@
-"""Central configuration and the shared Anthropic client.
+"""Central configuration and LLM client initialization (Groq / Anthropic).
 
 Everything that affects a reported number lives here, so an evaluation run can be
 reproduced from a single file. Do not scatter model names or temperatures through
@@ -10,7 +10,6 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from anthropic import Anthropic
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -51,6 +50,7 @@ def get_client():
 
     ant_key = os.getenv("ANTHROPIC_API_KEY")
     if ant_key:
+        from anthropic import Anthropic
         return Anthropic(api_key=ant_key)
 
     raise RuntimeError(
