@@ -1,0 +1,6 @@
+screenshot,pattern,evidence,severity,uncertain,notes
+deceptive-001-travel-booking.png,basket_sneaking,"Travel protection ₹299 (checkbox pre-ticked)",high,no,
+deceptive-001-travel-booking.png,false_urgency,"Offer expires in 00:04:59",medium,yes,"Timer present; cannot confirm it resets from one frame"
+deceptive-002-fashion-cart.png,drip_pricing,"Platform fee ₹49 — added at payment, not on listing",high,yes,"Second screenshot of listing page would settle this"
+deceptive-003-news-paywall.png,interface_interference,"Accept all (solid blue) vs 'manage preferences' (grey underlined text)",medium,no,
+deceptive-003-news-paywall.png,forced_action,"Sign in with phone number to continue reading",high,no,

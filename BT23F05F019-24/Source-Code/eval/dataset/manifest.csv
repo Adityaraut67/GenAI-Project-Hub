@@ -1,0 +1,6 @@
+screenshot,group,sector,source_url,captured_on,notes
+deceptive-001-travel-booking.png,deceptive,travel,https://example-travel.test/checkout,2026-10-12,"Insurance add-on pre-ticked; countdown in header"
+deceptive-002-fashion-cart.png,deceptive,ecommerce,https://example-shop.test/cart,2026-10-12,"Platform fee appears only at payment step"
+deceptive-003-news-paywall.png,deceptive,news,https://example-news.test/article,2026-10-12,"Cookie wall, reject path is a grey text link"
+control-001-govt-portal.png,control,government,https://example-gov.test/services,2026-10-12,"Expected clean"
+control-002-university.png,control,education,https://example-univ.test/admissions,2026-10-12,"Expected clean"
