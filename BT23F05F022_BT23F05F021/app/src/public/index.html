@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube QnA Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <div class="page-background" aria-hidden="true">
+        <div class="blob blob-a"></div>
+        <div class="blob blob-b"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <main class="app-shell">
+        <header class="hero">
+            <p class="eyebrow">AI Video Workspace</p>
+            <h1>YouTube QnA Studio</h1>
+            <p class="hero-copy">
+                Paste a YouTube link, start a session, then chat with your LLM using the returned video ID.
+            </p>
+        </header>
+
+        <section class="panel session-panel" aria-label="Session controls">
+            <h2>Start Session</h2>
+            <form id="session-form" class="session-form" novalidate>
+                <label for="youtube-url" class="input-label">YouTube Video URL</label>
+                <div class="input-row">
+                    <input
+                        id="youtube-url"
+                        name="youtubeUrl"
+                        type="url"
+                        placeholder="https://www.youtube.com/watch?v=..."
+                        autocomplete="off"
+                        required
+                    >
+                    <button id="start-session-btn" type="submit">Start</button>
+                </div>
+                <p id="session-feedback" class="feedback" role="status" aria-live="polite"></p>
+            </form>
+
+            <div class="status-grid">
+                <article class="status-card">
+                    <span class="status-label">Session</span>
+                    <strong id="session-state" class="status-value">Not Started</strong>
+                </article>
+                <article class="status-card">
+                    <span class="status-label">Video ID</span>
+                    <strong id="video-id" class="status-value">-</strong>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel chat-panel" aria-label="Chat">
+            <div class="chat-header">
+                <h2>Chat With LLM</h2>
+                <span id="chat-badge" class="chat-badge">Session required</span>
+            </div>
+
+            <div id="chat-messages" class="chat-messages" aria-live="polite" aria-label="Conversation messages"></div>
+
+            <form id="chat-form" class="chat-form" novalidate>
+                <label for="chat-input" class="sr-only">Type your question</label>
+                <textarea
+                    id="chat-input"
+                    name="chatMessage"
+                    rows="2"
+                    placeholder="Ask about this video..."
+                    required
+                    disabled
+                ></textarea>
+                <button id="send-btn" type="submit" disabled>Send</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="/public/script.js?v=1.1"></script>
+</body>
+</html>
