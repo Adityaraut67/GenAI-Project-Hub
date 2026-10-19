@@ -1,0 +1,10 @@
+
+streamlit
+pymupdf
+sentence-transformers
+faiss-cpu
+numpy
+google-genai
+python-dotenv
+plotly
+pandas
